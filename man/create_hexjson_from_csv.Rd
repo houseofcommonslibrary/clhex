@@ -7,12 +7,12 @@
 create_hexjson_from_csv(csv_file, hexjson_file, layout = "odd-r")
 }
 \arguments{
+\item{csv_file}{The name of a csv file of data to store in each hex.}
+
+\item{hexjson_file}{The name of an output file for the hexjson.}
+
 \item{layout}{The coordinate layout of the hexsjon. Must be one of:
 odd-r, even-r, odd-q, even-q.}
-
-\item{csv_name}{The name of a csv file of data to store in each hex.}
-
-\item{hexjson_name}{The name of an output file for the hexjson.}
 }
 \description{
 Converts a csv of codes, names and other data to a hexjson string, adding

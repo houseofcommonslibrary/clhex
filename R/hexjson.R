@@ -98,8 +98,8 @@ create_and_save_hexjson <- function(data, filename, layout = "odd-r") {
 #' hexjson and therefore must be unique. This function can be used to produce
 #' initial hexjson output which can then be edited in a hexjson editor.
 #'
-#' @param csv_name The name of a csv file of data to store in each hex.
-#' @param hexjson_name The name of an output file for the hexjson.
+#' @param csv_file The name of a csv file of data to store in each hex.
+#' @param hexjson_file The name of an output file for the hexjson.
 #' @param layout The coordinate layout of the hexsjon. Must be one of:
 #'   odd-r, even-r, odd-q, even-q.
 #' @export
