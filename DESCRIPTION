@@ -2,8 +2,12 @@ Package: clhex
 Type: Package
 Title: Tools for generating HexJSON from tabular data
 Version: 0.1.1
-Author: Oliver Hawkins
-Maintainer: Oliver Hawkins <oli@olihawkins.com>
+Authors@R: 
+    person(
+        given = "Oliver",
+        family = "Hawkins",
+        role = c("aut", "cre"),
+        email = "oli@olihawkins.com")
 Description: A collection of tools for working with hexmap and HexJSON data.
 License: BSD_3_clause + file LICENSE
 Encoding: UTF-8
@@ -15,4 +19,4 @@ Imports:
 	stringr,
 	tibble
 Suggests: testthat
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
