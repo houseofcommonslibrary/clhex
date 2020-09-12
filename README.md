@@ -4,11 +4,11 @@ A collection of hexmap tools for statistical researchers. This package is princi
 
 ## Installation
 
-Install from GitHub using devtools.
+Install from GitHub using remotes.
 
 ``` r
-install.packages("devtools")
-devtools::install_github("olihawkins/clhex")
+install.packages("remotes")
+remotes::install_github("houseofcommonslibrary/clhex")
 ```
 
 ## HexJSON
