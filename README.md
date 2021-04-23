@@ -13,7 +13,7 @@ remotes::install_github("houseofcommonslibrary/clhex")
 
 ## HexJSON
 
-These functions are used to convert data from tabular formats to hexjson. The `convert_hexjson` functions can be used to convert tabular data that already contains hexjson coordinates, wile the `create_hexjson` functions can be used to produce initial hexjson coordinates data for a hexmap of geographic areas. The hexjson data generated from these functions can then be edited in a [hexjson editor].
+These functions are used to convert data from tabular formats to hexjson. The `convert_hexjson` functions can be used to convert tabular data that already contains hexjson coordinates, while the `create_hexjson` functions can be used to produce initial hexjson coordinates data for a hexmap of geographic areas. The hexjson data generated from these functions can then be edited in a [hexjson editor].
 
 These functions take tabular data for a collection of geographic areas and convert it to a set of hexes represented as hexjson. If you do not already have hexjson coordinates for these areas, the `create_hexjson` functions will assign unique grid coordinates to each hex. Data may be provided in the form of a dataframe, tibble or csv. 
 
@@ -26,7 +26,7 @@ A [hexjson editor] can be used on the output of these functions to rearrange the
 ### Convert hexjson
 
 
-`convert_hexjson` converts a dataframe of codes, names, hexjson coordinates and other data to a hexjson string. The values in the first column are used as the key for each hex in the hexjson and therefore must be unique. The hexjson coordinates should be supplied in columns named `q` and `r`.
+`convert_hexjson` converts a dataframe of codes, names, hexjson coordinates, and other data to a hexjson string. The values in the first column are used as the key for each hex in the hexjson and therefore must be unique. The hexjson coordinates should be supplied in columns named `q` and `r`.
 
 ``` r
 data <- tibble::tibble(
@@ -65,7 +65,7 @@ convert_and_save_hexjson("input.csv", "output.hexjson", "odd-q")
 
 ### Create hexjson
 
-`create_hexjson` converts a dataframe of codes, names and other data to a hexjson string, adding unique column and row coordinates for each hex. The values in the first column are used as the key for each hex in the hexjson and therefore must be unique.
+`create_hexjson` converts a dataframe of codes, names, and other data to a hexjson string, adding unique column and row coordinates for each hex. The values in the first column are used as the key for each hex in the hexjson and therefore must be unique.
 
 ``` r
 data <- tibble::tibble(
