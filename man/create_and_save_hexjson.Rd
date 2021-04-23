@@ -2,7 +2,7 @@
 % Please edit documentation in R/hexjson.R
 \name{create_and_save_hexjson}
 \alias{create_and_save_hexjson}
-\title{Convert tabular data to hexjson and save it to a file}
+\title{Convert tabular data to hexjson, add unique coordinates, and save to a file}
 \usage{
 create_and_save_hexjson(data, filename, layout = "odd-r")
 }

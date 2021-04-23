@@ -27,6 +27,87 @@ get_hex_string <- function(...) {
 
 #' Convert tabular data to hexjson
 #'
+#' Converts a dataframe of codes, names, hexjson coordinates, and other data to
+#' a hexjson string. The values in the first column are used as the key for
+#' each hex in the hexjson and therefore must be unique. The values in columns
+#' \code{q} and \code{r} are the hexjson coordinates for columns and rows
+#' respectively. The values in any other columns are stored as properties of
+#' each hex.
+#'
+#' @param data A dataframe of labels and data to store in each hex.
+#' @param layout The coordinate layout of the hexsjon. Must be one of:
+#'   odd-r, even-r, odd-q, even-q.
+#' @return A hexjson string
+#' @export
+#'
+convert_hexjson <- function(data, layout = "odd-r") {
+
+    layouts <- c("odd-r", "even-r", "odd-q", "even-q")
+
+    if (! (layout %in% layouts)) stop(
+        stringr::str_interp("\"${layout}\" is not a valid layout."))
+
+    if (length(data[[1]]) != length(unique(data[[1]]))) stop(paste(
+        "Duplicate values found in first column of data: values in",
+        "the first column are used as a key and so must be unique."))
+
+    hex_strings <- purrr::pmap_chr(data, get_hex_string)
+
+    hex_strings[length(hex_strings)] <- stringr::str_sub(
+        hex_strings[length(hex_strings)], 1, -2)
+
+    hex_strings <- paste(hex_strings, collapse = "")
+
+    stringr::str_interp(
+        "{\"layout\":\"${layout}\",\"hexes\":{${hex_strings}}}")
+}
+
+#' Convert tabular data to hexjson and save to a file
+#'
+#' Converts a dataframe of codes, names, hexjson coordinates, and other data to
+#' a hexjson string and then saves it to a file. The values in the first column
+#' are used as the key for each hex in the hexjson and therefore must be unique.
+#' The values in columns \code{q} and \code{r} are the hexjson coordinates for
+#' columns and rows respectively. The values in any other columns are stored as
+#' properties of each hex.
+#'
+#' @param data A dataframe of labels and data to store in each hex.
+#' @param filename The name of an output file for the hexjson.
+#' @param layout The coordinate layout of the hexsjon. Must be one of:
+#'   odd-r, even-r, odd-q, even-q.
+#' @export
+#'
+convert_and_save_hexjson <- function(data, filename, layout = "odd-r") {
+
+    hexjson_str <- convert_hexjson(data, layout)
+    readr::write_file(hexjson_str, filename)
+}
+
+#' Convert a csv of data to hexjson and save to a file
+#'
+#' Converts a csv of codes, names, hexjson coordinates, and other_data to a
+#' hexjson string and then saves it to a file. The values in the first column
+#' are used as the key for each hex in the hexjson and therefore must be
+#' unique. The values in columns \code{q} and \code{r} are the hexjson
+#' coordinates for columns and rows respectively. The values in any other
+#' columns are stored as properties of each hex.
+#'
+#' @param csv_file The name of a csv file of data to store in each hex.
+#' @param hexjson_file The name of an output file for the hexjson.
+#' @param layout The coordinate layout of the hexsjon. Must be one of:
+#'   odd-r, even-r, odd-q, even-q.
+#' @export
+#'
+convert_hexjson_from_csv <- function(csv_file,
+                                    hexjson_file,
+                                    layout = "odd-r") {
+
+    data <- readr::read_csv(csv_file, col_types = readr::cols())
+    convert_and_save_hexjson(data, hexjson_file, layout)
+}
+
+#' Convert tabular data to hexjson and assign unique coordinates in a grid
+#'
 #' Converts a dataframe of codes, names and other data to a hexjson string,
 #' adding unique column and row coordinates for each hex. The values in the
 #' first column are used as the key for each hex in the hexjson and therefore
@@ -42,7 +123,6 @@ get_hex_string <- function(...) {
 create_hexjson <- function(data, layout = "odd-r") {
 
     layouts <- c("odd-r", "even-r", "odd-q", "even-q")
-    layouts_str <- paste(layouts, collapse = ", ")
 
     if (! (layout %in% layouts)) stop(
         stringr::str_interp("\"${layout}\" is not a valid layout."))
@@ -69,7 +149,7 @@ create_hexjson <- function(data, layout = "odd-r") {
         "{\"layout\":\"${layout}\",\"hexes\":{${hex_strings}}}")
 }
 
-#' Convert tabular data to hexjson and save it to a file
+#' Convert tabular data to hexjson, add unique coordinates, and save to a file
 #'
 #' Converts a dataframe of codes, names and other data to a hexjson string,
 #' adding unique column and row coordinates for each hex, then saves it to a
@@ -90,7 +170,7 @@ create_and_save_hexjson <- function(data, filename, layout = "odd-r") {
     readr::write_file(hexjson_str, filename)
 }
 
-#' Convert a csv of tabular data to hexjson and save it to a file
+#' Convert a csv of data to hexjson, add unique coordinates, and save to a file
 #'
 #' Converts a csv of codes, names and other data to a hexjson string, adding
 #' unique column and row coordinates for each hex, then saves it to a file.

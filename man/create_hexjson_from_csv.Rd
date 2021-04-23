@@ -2,7 +2,7 @@
 % Please edit documentation in R/hexjson.R
 \name{create_hexjson_from_csv}
 \alias{create_hexjson_from_csv}
-\title{Convert a csv of tabular data to hexjson and save it to a file}
+\title{Convert a csv of data to hexjson, add unique coordinates, and save to a file}
 \usage{
 create_hexjson_from_csv(csv_file, hexjson_file, layout = "odd-r")
 }
